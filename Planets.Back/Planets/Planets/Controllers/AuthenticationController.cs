@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Planets.Data.Models.Views;
+using Planets.Data.Repositories;
 
 namespace Planets.Controllers
 {
@@ -11,12 +13,19 @@ namespace Planets.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-        //[HttpPut("hashedPassword")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //public async Task<IActionResult> Validate(string hashedPassword)
-        //{
+        private readonly IAuthenticationReadRepository _authenticationReadRepository;
 
-        //}
+        public AuthenticationController(IAuthenticationReadRepository authenticationReadRepository)
+        {
+            _authenticationReadRepository = authenticationReadRepository;
+        }
+
+        [HttpPut("hashedPassword")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<AuthenticationView> Validate(string hashedPassword)
+        {
+            return await _authenticationReadRepository.ReadAuthentication(hashedPassword);
+        }
     }
 }
