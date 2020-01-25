@@ -7,9 +7,9 @@ namespace Planets.Data.Repositories
 {
     public class PlanetWriteRepository
     {
-        public async Task<> WritePlanet()
-        {
+        //public async Task<> WritePlanet()
+        //{
 
-        }
+        //}
     }
 }

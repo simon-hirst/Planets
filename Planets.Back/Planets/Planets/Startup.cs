@@ -6,26 +6,31 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Planets.Data;
+using Planets.Data.Repositories;
 
 namespace Planets
 {
     public class Startup
     {
+        private readonly IConfiguration _configuration;
+
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<PlanetsContext>(options => options.UseSqlServer(_configuration["SqlDbConnectionString"]));
             services.AddControllers();
+            services.AddTransient<IPlanetReadRepository, PlanetReadRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

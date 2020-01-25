@@ -11,12 +11,12 @@ namespace Planets.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-        [HttpPut("hashedPassword")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> Validate(string hashedPassword)
-        {
+        //[HttpPut("hashedPassword")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //public async Task<IActionResult> Validate(string hashedPassword)
+        //{
 
-        }
+        //}
     }
 }
