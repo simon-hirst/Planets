@@ -31,6 +31,7 @@ namespace Planets
             services.AddDbContext<PlanetsContext>(options => options.UseSqlServer(_configuration["SqlDbConnectionString"]));
             services.AddControllers();
             services.AddTransient<IPlanetReadRepository, PlanetReadRepository>();
+            //services.AddTransient<IAuthenticationReadRepository, AuthenticationReadRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

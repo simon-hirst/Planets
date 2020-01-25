@@ -8,5 +8,6 @@ namespace Planets.Data.Models.Entities
     public class AuthenticationEntity
     {
         public Guid id { get; set; }
+        public string hashedPassword { get; set; }
     }
 }
