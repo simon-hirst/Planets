@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Planets.Data.Models.Entities
 {
     public class AuthenticationEntity
     {
-        public Guid id { get; set; }
-        public string hashedPassword { get; set; }
+        public Guid Id { get; set; }
+        public string HashedPassword { get; set; }
     }
 }

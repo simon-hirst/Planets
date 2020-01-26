@@ -1,9 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Planets.Data.Models.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Planets.Data.Repositories
 {
@@ -18,11 +15,12 @@ namespace Planets.Data.Repositories
 
         public async Task<AuthenticationView> ReadAuthentication(string hashedPassword)
         {
-            var result = await _dbContext.AuthenticationDb.FirstOrDefaultAsync(authentication => authentication.hashedPassword == hashedPassword);
+            var result = await _dbContext.AuthenticationDb.FirstOrDefaultAsync(authentication =>
+                authentication.HashedPassword == hashedPassword);
 
             return new AuthenticationView
             {
-                isValid = result != null
+                IsValid = result != null
             };
         }
     }

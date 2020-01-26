@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Planets.Data.Models.Views;
 using Planets.Data.Repositories;
+using static Microsoft.AspNetCore.Http.StatusCodes;
 
 namespace Planets.Controllers
 {
@@ -13,33 +14,40 @@ namespace Planets.Controllers
     public class PlanetController : ControllerBase
     {
         private readonly IPlanetReadRepository _planetReadRepository;
+        private readonly IPlanetWriteRepository _planetWriteRepository;
 
-        public PlanetController(IPlanetReadRepository planetReadRepository)
+        public PlanetController(IPlanetReadRepository planetReadRepository, IPlanetWriteRepository planetWriteRepository)
         {
             _planetReadRepository = planetReadRepository;
+            _planetWriteRepository = planetWriteRepository;
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<PlanetView> GetPlanet(Guid id)
+        [ProducesResponseType(Status200OK)]
+        [ProducesResponseType(Status404NotFound)]
+        public async Task<ActionResult<PlanetView>> GetPlanet(Guid id)
         {
-            return await _planetReadRepository.ReadPlanet(id);
+            var planet = await _planetReadRepository.ReadPlanet(id);
+            return planet == null ? NotFound("No such planet exist") : new ActionResult<PlanetView>(planet);
         }
 
-        //[HttpGet]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //public async Task<IEnumerable<Planet>> GetAllPlanets()
-        //{
-        //    return new Object();
-        //}
+        [HttpGet]
+        [ProducesResponseType(Status200OK)]
+        [ProducesResponseType(Status404NotFound)]
+        public async Task<ActionResult<IEnumerable<PlanetView>>> GetAllPlanets()
+        {
+            var planets = await _planetReadRepository.ReadPlanets();
+            return planets == null ? NotFound("No planets exist") : new ActionResult<IEnumerable<PlanetView>>(planets);
+        }
 
-        //[HttpPut("{id}")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //public async Task<IActionResult> UpdatePlanet(Guid id)
-        //{
-        //    return new Object();
-        //}
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<PlanetView>> UpdatePlanet(PlanetView planet)
+        {
+            var planetResult = await _planetWriteRepository.WritePlanet(planet);
+            return planetResult == null ? NotFound("No such planet exist") : new ActionResult<PlanetView>(planetResult);
+        }
     }
 }

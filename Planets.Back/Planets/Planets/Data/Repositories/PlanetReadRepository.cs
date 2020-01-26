@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Planets.Data.Models.Views;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Planets.Data.Models.Views;
 
 namespace Planets.Data.Repositories
 {
@@ -18,14 +18,34 @@ namespace Planets.Data.Repositories
 
         public async Task<PlanetView> ReadPlanet(Guid id)
         {
-            var result = await _dbContext.PlanetsDb.FirstOrDefaultAsync(planet => planet.id == id);
-            return new PlanetView { id = result.id, diameter = result.diameter, distanceFromSun = result.distanceFromSun,
-            image = result.image, mass = result.mass};
+            var planet = await _dbContext.PlanetsDb.FirstOrDefaultAsync(_planet => _planet.Id == id);
+            if (planet != null)
+            {
+                return new PlanetView
+                {
+                    Id = planet.Id, Name = planet.Name, Diameter = planet.Diameter, DistanceFromSun = planet.DistanceFromSun,
+                    Image = planet.Image, Mass = planet.Mass
+                };
+            }
+            return null;
         }
 
-        //public async Task<> ReadPlanets()
-        //{
-
-        //}
+        public async Task<IEnumerable<PlanetView>> ReadPlanets()
+        {
+            var planets = _dbContext.PlanetsDb;
+            if (await planets.AnyAsync())
+            {
+                return planets.Select(planet => new PlanetView
+                    {
+                        Id = planet.Id,
+                        Name = planet.Name,
+                        Diameter = planet.Diameter,
+                        DistanceFromSun = planet.DistanceFromSun,
+                        Image = planet.Image,
+                        Mass = planet.Mass
+                    });
+            }
+            return null;
+        }
     }
 }

@@ -1,16 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Planets.Data;
 using Planets.Data.Repositories;
 
@@ -24,34 +18,39 @@ namespace Planets
         {
             _configuration = configuration;
         }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+        
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+        
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PlanetsContext>(options => options.UseSqlServer(_configuration["SqlDbConnectionString"]));
+            services.AddDbContext<PlanetsContext>(options =>
+                options.UseSqlServer(_configuration["SqlDbConnectionString"]));
             services.AddControllers();
             services.AddTransient<IPlanetReadRepository, PlanetReadRepository>();
-            //services.AddTransient<IAuthenticationReadRepository, AuthenticationReadRepository>();
+            services.AddTransient<IAuthenticationReadRepository, AuthenticationReadRepository>();
+            services.AddTransient<IPlanetWriteRepository, PlanetWriteRepository>();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:3000");
+                    });
+            });
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }
