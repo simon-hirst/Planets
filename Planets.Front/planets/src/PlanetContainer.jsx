@@ -62,8 +62,14 @@ class PlanetContainer extends React.Component {
                 return (
                   <div key={id}>
                     <Planet
-                      id={id} name={name} image={image} distanceFromSun={distanceFromSun}
-                      mass={mass} diameter={diameter} getPlanets={this.getPlanet} updatePlanet={this.updatePlanet}
+                      id={id}
+                      name={name}
+                      image={image}
+                      distanceFromSun={distanceFromSun}
+                      mass={mass}
+                      diameter={diameter}
+                      getPlanets={this.getPlanet}
+                      updatePlanet={this.updatePlanet}
                     />
                   </div>
                 );
