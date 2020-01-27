@@ -38,6 +38,10 @@ class PlanetContainer extends React.Component {
     return planet;
   }
 
+  putPlanet(){
+
+  }
+
   updatePlanet(planet) {
     const { planets } = this.state;
     planets[planets.findIndex((x) => x.id === planet.id)] = planet;
@@ -68,7 +72,7 @@ class PlanetContainer extends React.Component {
                       distanceFromSun={distanceFromSun}
                       mass={mass}
                       diameter={diameter}
-                      getPlanets={this.getPlanet}
+                      getPlanet={this.getPlanet}
                       updatePlanet={this.updatePlanet}
                     />
                   </div>

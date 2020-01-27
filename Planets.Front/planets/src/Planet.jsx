@@ -11,6 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from '@material-ui/core/Button';
+import PlanetEditModal from "./PlanetEditModal";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -40,10 +41,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Planet({
-  name, image, distanceFromSun, mass, diameter,
+  name, image, distanceFromSun, mass, diameter, getPlanet, updatePlanet,
 }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
+  const [modalOpen, setModalOpen] = React.useState(false);
   const imageLocation = `img/${image.toString()}`;
 
   const handleExpandClick = () => {
@@ -51,52 +53,52 @@ export default function Planet({
   };
 
   const handleEditClick = () => {
-    setExpanded(!expanded);
+    setModalOpen(!modalOpen);
   };
 
   return (
-    <Card className={classes.card}>
-      <CardHeader
-        className={classes.header}
-        title={name}
-      />
-      <CardActions disableSpacing>
-        <Button size="small" color="primary" onClick={handleEditClick}>
-          Edit
-        </Button>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <CardMedia
-            className={classes.media}
-            image={imageLocation}
-            title={name}
-          />
-          <Typography paragraph className={classes.paragraph}>
+    <>
+      <Card className={classes.card}>
+        <CardHeader
+          className={classes.header}
+          title={name}
+        />
+        <CardActions disableSpacing>
+          <PlanetEditModal name={name}/>
+          <IconButton
+            className={clsx(classes.expand, {
+              [classes.expandOpen]: expanded,
+            })}
+            onClick={handleExpandClick}
+          >
+            <ExpandMoreIcon />
+          </IconButton>
+        </CardActions>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            <CardMedia
+              className={classes.media}
+              image={imageLocation}
+              title={name}
+            />
+            <Typography paragraph className={classes.paragraph}>
               Distance from the Sun:
-            {' '}
-            {distanceFromSun}
-          </Typography>
-          <Typography paragraph className={classes.paragraph}>
+              {' '}
+              {distanceFromSun}
+            </Typography>
+            <Typography paragraph className={classes.paragraph}>
               Mass:
-            {' '}
-            {mass}
-          </Typography>
-          <Typography paragraph className={classes.paragraph}>
+              {' '}
+              {mass}
+            </Typography>
+            <Typography paragraph className={classes.paragraph}>
               Diameter:
-            {' '}
-            {diameter}
-          </Typography>
-        </CardContent>
-      </Collapse>
-    </Card>
+              {' '}
+              {diameter}
+            </Typography>
+          </CardContent>
+        </Collapse>
+      </Card>
+    </>
   );
 }
