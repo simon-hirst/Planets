@@ -4,7 +4,7 @@ import axios from 'axios';
 import Container from '@material-ui/core/Container';
 import Planet from './Planet';
 
-class PlanetContainer extends React.Component {
+class Page extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,29 +14,29 @@ class PlanetContainer extends React.Component {
     };
   }
 
-  getPlanets() {
-    axios
-      .get('https://localhost:5001/api/Planet')
-      .then((response) => {
-        this.setState({
-          planets: response.data,
-          isLoading: false,
-        });
-      })
-      .catch((error) => this.setState({ error, isLoading: false }));
-  }
+  // getPlanets() {
+  //   axios
+  //     .get('https://localhost:5001/api/Planet')
+  //     .then((response) => {
+  //       this.setState({
+  //         planets: response.data,
+  //         isLoading: false,
+  //       });
+  //     })
+  //     .catch((error) => this.setState({ error, isLoading: false }));
+  // }
 
-  getPlanet(planetId) {
-    let planet;
-    axios
-      .get(`https://localhost:5001/api/Planet/${planetId}`)
-      .then((response) => {
-        console.log(response);
-        planet = response;
-      })
-      .catch((error) => this.setState({ error, isLoading: false }));
-    return planet;
-  }
+  // getPlanet(planetId) {
+  //   let planet;
+  //   axios
+  //     .get(`https://localhost:5001/api/Planet/${planetId}`)
+  //     .then((response) => {
+  //       console.log(response);
+  //       planet = response;
+  //     })
+  //     .catch((error) => this.setState({ error, isLoading: false }));
+  //   return planet;
+  // }
 
   putPlanet(){
 
@@ -48,9 +48,9 @@ class PlanetContainer extends React.Component {
     this.setState({ planets });
   }
 
-  componentDidMount() {
-    this.getPlanets();
-  }
+  // componentDidMount() {
+  //   this.getPlanets();
+  // }
 
   render() {
     const { isLoading, planets } = this.state;
@@ -88,4 +88,4 @@ class PlanetContainer extends React.Component {
   }
 }
 
-export default PlanetContainer;
+export default Page;
