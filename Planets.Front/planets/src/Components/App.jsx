@@ -39,15 +39,28 @@ export default class extends Component {
     }))
   }
 
+  handleEditSubmit = planet => {;
+      console.log(planet.planet);
+    axios
+        .put('https://localhost:5001/api/Planet',  planet.planet )
+        .then((response) => {
+          this.setState({
+            planets: [ planets.filter(pl => pl.id !== planet.id),
+            planet
+          ],
+            editingPlanet: false
+          });
+        }
+        )
+        .catch((error) => this.setState({ error }));
+  }
+
   render() {
-
-
     return (
       <>
-        <Page />
         <Planets selectedPlanet={this.state.selectedPlanet} planets={this.state.planets}
                  onSelect={this.handlePlanetSelected} onEdit={this.handleEditPlanet}
-                 editingPlanet={this.state.editingPlanet}/>
+                 editingPlanet={this.state.editingPlanet} onSubmit={this.handleEditSubmit}/>
       </>
     );
   }

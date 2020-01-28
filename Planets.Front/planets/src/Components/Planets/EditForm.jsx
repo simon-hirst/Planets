@@ -1,5 +1,6 @@
-import React from 'react'
-import {TextField, FormControl, InputLabel, Select} from "@material-ui/core";
+import React, {Component, Fragment} from 'react'
+import {TextField, FormControl, InputLabel, Select, DialogTitle, DialogContent, Dialog} from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 
 const styles = theme => ({
     FormControl:{
@@ -7,15 +8,72 @@ const styles = theme => ({
     }
 })
 
-export default class extends Component {
+export default class EditForm extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { planet: this.props.selectedPlanet, open: false };
+    }
+
+    handleChange = name => ({ target : { value }}) => {
+        this.setState({
+            planet : {
+                ...this.state.planet,
+                [name] : value
+            }
+        })
+    }
+
+    handleSubmit = () => {
+        const planet = this.state.planet;
+
+        this.props.onSubmit({
+            planet
+        })
+
+        this.setState({
+            open: false,
+            planet: {
+                id: '',
+                name: '',
+                image: '',
+                distanceFromSun: '',
+                diameter: '',
+                mass: ''
+            }
+        })
+    }
+
     render(){
-        <form>
-            <TextField
-                label='Title'
-                value={title}
-                onChange={this.handleChange('title')}
-            />
-            <br />
-        </form>
+        const { name, distanceFromSun, diameter, mass, open } = this.state;
+
+        return(<form>
+                    <TextField
+                        label='Name'
+                        value={name}
+                        onChange={this.handleChange('name')}
+                    />
+                    <br />
+                    <TextField
+                        label='Distance from Sun'
+                        value={distanceFromSun}
+                        onChange={this.handleChange('distanceFromSun')}
+                    />
+                    <br />
+                    <TextField
+                        label='Diameter'
+                        value={diameter}
+                        onChange={this.handleChange('diameter')}
+                    />
+                    <br />
+                    <TextField
+                        label='Mass'
+                        value={mass}
+                        onChange={this.handleChange('mass')}
+                    />
+                    <br />
+                    <Button color='primary' raised onClick={this.handleSubmit}>
+                        Submit
+                    </Button>
+        </form>)
     }
 }

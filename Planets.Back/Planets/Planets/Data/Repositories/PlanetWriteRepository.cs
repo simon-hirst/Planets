@@ -21,11 +21,12 @@ namespace Planets.Data.Repositories
             persistedPlanet.Image = planet.Image;
             persistedPlanet.Mass = planet.Mass;
             persistedPlanet.DistanceFromSun = planet.DistanceFromSun;
+            persistedPlanet.Name = planet.Name;
             _dbContext.PlanetsDb.Update(persistedPlanet);
             await _dbContext.SaveChangesAsync();
             return new PlanetView
             {
-                Id = persistedPlanet.Id, Diameter = persistedPlanet.Diameter, DistanceFromSun = persistedPlanet.DistanceFromSun,
+                Id = persistedPlanet.Id, Name = persistedPlanet.Name, Diameter = persistedPlanet.Diameter, DistanceFromSun = persistedPlanet.DistanceFromSun,
                 Image = persistedPlanet.Image, Mass = persistedPlanet.Mass
             };
 

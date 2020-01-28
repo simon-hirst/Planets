@@ -1,20 +1,19 @@
 import React, { Fragment } from 'react';
 import {
-    Grid, Paper, Typography, List, ListItem, ListItemText, Avatar, ListItemSecondaryAction, IconButton
+  Grid, Paper, Typography, List, ListItem, ListItemText, Avatar, ListItemSecondaryAction, IconButton,
 } from '@material-ui/core';
-import {Edit} from '@material-ui/icons';
+import { Edit } from '@material-ui/icons';
+import EditForm from './EditForm';
 
 const styles = {
   Paper: { padding: 20, marginTop: 10, marginBottom: 10 },
-    Paragraph:{
+  Paragraph: {
 
-    }
+  },
 };
 
 export default ({
-  planets, onSelect, selectedPlanet: {
-    id, name='', image='', distanceFromSun='', mass='', diameter='',
-  }, onEdit, editingPlanet
+  planets, onSelect, selectedPlanet, onEdit, editingPlanet, onSubmit,
 }) => (
   <Grid container>
     <Grid item sm>
@@ -26,9 +25,9 @@ export default ({
                 <ListItem key={planet.id} button onClick={() => onSelect(planet.id)}>
                   <ListItemText primary={planet.name} />
                   <ListItemSecondaryAction>
-                      <IconButton onClick={() => onEdit(planet.id)}>
-                        <Edit/>
-                      </IconButton>
+                    <IconButton onClick={() => onEdit(planet.id)}>
+                      <Edit />
+                    </IconButton>
                   </ListItemSecondaryAction>
                 </ListItem>
               ))}
@@ -39,29 +38,35 @@ export default ({
     </Grid>
     <Grid item sm>
       <Paper style={styles.Paper}>
-        <Typography display1>
-            {name}
-        </Typography>
-
-          <Avatar style={{width:'100px', height:'100px'}} src={'img/' + image}/>
-        <Typography subheading style={{ marginTop: 20 }}>
-            Mass
-        </Typography>
-        <Typography paragraph style={{ marginTop: 20 }}>
-            {mass}
-        </Typography>
-          <Typography subheading style={{ marginTop: 20 }}>
+        {
+              editingPlanet ? <EditForm selectedPlanet={selectedPlanet} onSubmit={onSubmit}/>
+                : (
+                  <>
+                    <Typography display1>
+                      {selectedPlanet.name}
+                    </Typography>
+                    <Avatar style={{ width: '100px', height: '100px' }} src={`img/${selectedPlanet.image}`} />
+                    <Typography subheading style={{ marginTop: 20 }}>
+              Mass
+                    </Typography>
+                    <Typography paragraph style={{ marginTop: 20 }}>
+                      {selectedPlanet.mass}
+                    </Typography>
+                    <Typography subheading style={{ marginTop: 20 }}>
               Distance from Sun
-          </Typography>
-          <Typography paragraph style={{ marginTop: 20 }}>
-              {distanceFromSun}
-          </Typography>
-          <Typography subheading style={{ marginTop: 20 }}>
+                    </Typography>
+                    <Typography paragraph style={{ marginTop: 20 }}>
+                      {selectedPlanet.distanceFromSun}
+                    </Typography>
+                    <Typography subheading style={{ marginTop: 20 }}>
               Diameter
-          </Typography>
-          <Typography paragraph style={{ marginTop: 20 }}>
-              {diameter}
-          </Typography>
+                    </Typography>
+                    <Typography paragraph style={{ marginTop: 20 }}>
+                      {selectedPlanet.diameter}
+                    </Typography>
+                  </>
+                )
+          }
       </Paper>
     </Grid>
   </Grid>
