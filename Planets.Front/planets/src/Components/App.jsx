@@ -27,7 +27,8 @@ export default class extends Component {
 
   handlePlanetSelected = id => {
     this.setState(( { planets } ) => ({
-      selectedPlanet: planets.find(planet => planet.id === id)
+      selectedPlanet: planets.find(planet => planet.id === id),
+      editingPlanet: false
     }))
   }
 
@@ -43,9 +44,10 @@ export default class extends Component {
         .put('https://localhost:5001/api/Planet',  planet.planet )
         .then((response) => {
           this.setState({
-            editingPlanet: false
+            editingPlanet: false,
+            planets: [...this.state.planets.filter(p => p.id !== planet.planet.id), planet.planet],
+            selectedPlanet: planet.planet
           })
-          //TODO
         }).catch((error) => { this.setState({ error }) });
   }
 

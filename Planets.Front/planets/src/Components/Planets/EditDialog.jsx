@@ -34,4 +34,4 @@ export default class extends Component{
             </DialogContent>
         </Dialog>
     }
-    }
+}

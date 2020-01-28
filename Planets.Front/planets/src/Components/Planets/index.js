@@ -18,8 +18,6 @@ export default ({
   <Grid container>
     <Grid item sm>
       <Paper style={styles.Paper}>
-        {planets
-          ? (
             <List component="ul">
               {planets.map((planet) => (
                 <ListItem key={planet.id} button onClick={() => onSelect(planet.id)}>
@@ -32,14 +30,12 @@ export default ({
                 </ListItem>
               ))}
             </List>
-          )
-          : null}
       </Paper>
     </Grid>
     <Grid item sm>
       <Paper style={styles.Paper}>
         {
-              editingPlanet ? <EditForm selectedPlanet={selectedPlanet} onSubmit={onSubmit}/>
+              editingPlanet ? <EditForm selectedPlanet={selectedPlanet} onSubmit={onSubmit} />
                 : (
                   <>
                     <Typography display1>
