@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Page } from './Layouts';
 import Planets from './Planets';
-import { planets } from '../store.js';
 
 export default class extends Component {
   constructor(props) {
@@ -39,20 +38,15 @@ export default class extends Component {
     }))
   }
 
-  handleEditSubmit = planet => {;
-      console.log(planet.planet);
+  handleEditSubmit = planet => {
     axios
         .put('https://localhost:5001/api/Planet',  planet.planet )
         .then((response) => {
           this.setState({
-            planets: [ planets.filter(pl => pl.id !== planet.id),
-            planet
-          ],
             editingPlanet: false
-          });
-        }
-        )
-        .catch((error) => this.setState({ error }));
+          })
+          //TODO
+        }).catch((error) => { this.setState({ error }) });
   }
 
   render() {
