@@ -48,25 +48,19 @@ export default class EditForm extends Component {
 
         return(<form>
                     <TextField
-                        label='Name'
-                        value={name}
-                        onChange={this.handleChange('name')}
-                    />
-                    <br />
-                    <TextField
-                        label='Distance from Sun'
+                        label='Distance from Sun (AU)'
                         value={distanceFromSun}
                         onChange={this.handleChange('distanceFromSun')}
                     />
                     <br />
                     <TextField
-                        label='Diameter'
+                        label='Diameter (KM)'
                         value={diameter}
                         onChange={this.handleChange('diameter')}
                     />
                     <br />
                     <TextField
-                        label='Mass'
+                        label='Mass (x10^24KG)'
                         value={mass}
                         onChange={this.handleChange('mass')}
                     />

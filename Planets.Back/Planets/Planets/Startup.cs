@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Planets.Data;
 using Planets.Data.Repositories;
+using Planets.StartupTasks;
 
 namespace Planets
 {
@@ -29,6 +30,8 @@ namespace Planets
             services.AddTransient<IPlanetReadRepository, PlanetReadRepository>();
             services.AddTransient<IAuthenticationReadRepository, AuthenticationReadRepository>();
             services.AddTransient<IPlanetWriteRepository, PlanetWriteRepository>();
+            services.AddTransient<ISetupTaskWriteRepository, SetupTaskWriteRepository>();
+            services.AddTransient<IStartupTask, PlanetSetup>();
             services.AddCors(options =>
             {
                 options.AddPolicy(MyAllowSpecificOrigins,

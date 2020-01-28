@@ -46,13 +46,13 @@ export default ({
               Mass
                     </Typography>
                     <Typography paragraph style={{ marginTop: 20 }}>
-                      {selectedPlanet.mass}
+                      {selectedPlanet.mass} kg
                     </Typography>
                     <Typography subheading style={{ marginTop: 20 }}>
               Distance from Sun
                     </Typography>
                     <Typography paragraph style={{ marginTop: 20 }}>
-                      {selectedPlanet.distanceFromSun}
+                      {selectedPlanet.distanceFromSun} AU (Astronomical Units)
                     </Typography>
                     <Typography subheading style={{ marginTop: 20 }}>
               Diameter
