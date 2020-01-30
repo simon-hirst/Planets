@@ -1,6 +1,16 @@
 import React, {Component, Fragment} from 'react'
-import {TextField, FormControl, InputLabel, Select, DialogTitle, DialogContent, Dialog} from "@material-ui/core";
+import {
+    TextField,
+    FormControl,
+    InputLabel,
+    Select,
+    DialogTitle,
+    DialogContent,
+    Dialog,
+    Typography
+} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
+import ErrorDialog from "./ErrorDialog";
 
 const styles = theme => ({
     FormControl:{
@@ -12,6 +22,12 @@ export default class EditForm extends Component {
     constructor(props) {
         super(props);
         this.state = { planet: this.props.selectedPlanet, open: false };
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.selectedPlanet !== prevProps.selectedPlanet) {
+            this.setState({planet: this.props.selectedPlanet});
+        }
     }
 
     handleChange = name => ({ target : { value }}) => {
@@ -29,45 +45,41 @@ export default class EditForm extends Component {
         this.props.onSubmit({
             planet
         })
-
-        this.setState({
-            open: false,
-            planet: {
-                id: '',
-                name: '',
-                image: '',
-                distanceFromSun: '',
-                diameter: '',
-                mass: ''
-            }
-        })
     }
 
     render(){
-        const { name, distanceFromSun, diameter, mass, open } = this.state;
+        return(
 
-        return(<form>
+            <form>
+            <Typography display1>
+                Editing {this.state.planet.name}
+            </Typography>
+            <br />
                     <TextField
                         label='Distance from Sun (AU)'
-                        value={distanceFromSun}
+                        value={this.state.planet.distanceFromSun}
+                        defaultValue={this.state.planet.distanceFromSun}
                         onChange={this.handleChange('distanceFromSun')}
                     />
                     <br />
                     <TextField
                         label='Diameter (KM)'
-                        value={diameter}
+                        value={this.state.planet.diameter}
+                        defaultValue={this.state.planet.diameter}
                         onChange={this.handleChange('diameter')}
                     />
                     <br />
                     <TextField
-                        label='Mass (x10^24KG)'
-                        value={mass}
+                        label='Mass (YG)'
+                        value={this.state.planet.mass}
+                        defaultValue={this.state.planet.mass}
                         onChange={this.handleChange('mass')}
                     />
                     <br />
-                    <Button color='primary' raised onClick={this.handleSubmit}>
+                    <Button color='primary' onClick={this.handleSubmit}>
                         Submit
                     </Button>
-        </form>)
+        </form>
+            )
     }
 }

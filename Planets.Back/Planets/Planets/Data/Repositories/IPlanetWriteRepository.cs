@@ -1,6 +1,4 @@
-﻿using System;
-using System.Numerics;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Planets.Data.Models.Views;
 
 namespace Planets.Data.Repositories

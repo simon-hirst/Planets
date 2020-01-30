@@ -1,4 +1,3 @@
-using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -15,13 +14,13 @@ namespace Planets
     {
         private readonly IConfiguration _configuration;
 
+        private readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             _configuration = configuration;
         }
-        
-        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-        
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<PlanetsContext>(options =>
@@ -44,7 +43,7 @@ namespace Planets
                     });
             });
         }
-        
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment()) app.UseDeveloperExceptionPage();

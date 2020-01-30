@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Planets.Data.Models.Views;
 
@@ -13,6 +12,7 @@ namespace Planets.Data.Repositories
         {
             _dbContext = dbContext;
         }
+
         public async Task<PlanetView> WritePlanet(PlanetView planet)
         {
             var persistedPlanet = await _dbContext.PlanetsDb.FirstOrDefaultAsync(entity => entity.Id == planet.Id);
@@ -26,10 +26,10 @@ namespace Planets.Data.Repositories
             await _dbContext.SaveChangesAsync();
             return new PlanetView
             {
-                Id = persistedPlanet.Id, Name = persistedPlanet.Name, Diameter = persistedPlanet.Diameter, DistanceFromSun = persistedPlanet.DistanceFromSun,
+                Id = persistedPlanet.Id, Name = persistedPlanet.Name, Diameter = persistedPlanet.Diameter,
+                DistanceFromSun = persistedPlanet.DistanceFromSun,
                 Image = persistedPlanet.Image, Mass = persistedPlanet.Mass
             };
-
         }
     }
 }

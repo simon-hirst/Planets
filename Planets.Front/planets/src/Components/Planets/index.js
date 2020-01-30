@@ -4,66 +4,45 @@ import {
 } from '@material-ui/core';
 import { Edit } from '@material-ui/icons';
 import EditForm from './EditForm';
+import PlanetDetailsDisplay from './PlanetDetailsDisplay';
+import ErrorDialog from "./ErrorDialog";
 
 const styles = {
   Paper: { padding: 20, marginTop: 10, marginBottom: 10 },
-  Paragraph: {
-
-  },
+  Container: {
+      padding: 25, marginTop: 10, marginBottom: 10
+  }
 };
 
 export default ({
-  planets, onSelect, selectedPlanet, onEdit, editingPlanet, onSubmit,
+  planets, onSelect, selectedPlanet, onEdit, editingPlanet, onSubmit, errors, handleErrorDialogClose
 }) => (
-  <Grid container>
-    <Grid item sm>
+    <>
+    {errors.length ? <ErrorDialog errors={errors} handleClose={handleErrorDialogClose}/> : <></>}
+
+  <Grid container style={styles.Container}>
+    <Grid item sm style={styles.Container}>
       <Paper style={styles.Paper}>
-            <List component="ul">
-              {planets.map((planet) => (
-                <ListItem key={planet.id} button onClick={() => onSelect(planet.id)}>
-                  <ListItemText primary={planet.name} />
-                  <ListItemSecondaryAction>
-                    <IconButton onClick={() => onEdit(planet.id)}>
-                      <Edit />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              ))}
-            </List>
+        <List component="ul">
+          {planets.map((planet) => (
+            <ListItem key={planet.id} button onClick={() => onSelect(planet.id)}>
+              <ListItemText primary={planet.name} />
+              <ListItemSecondaryAction>
+                <IconButton onClick={() => onEdit(planet.id)}>
+                  <Edit />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))}
+        </List>
       </Paper>
     </Grid>
-    <Grid item sm>
+    <Grid item sm style={styles.Container}>
       <Paper style={styles.Paper}>
-        {
-              editingPlanet ? <EditForm selectedPlanet={selectedPlanet} onSubmit={onSubmit} />
-                : (
-                  <>
-                    <Typography display1>
-                      {selectedPlanet.name}
-                    </Typography>
-                    <Avatar style={{ width: '100px', height: '100px' }} src={`img/${selectedPlanet.image}`} />
-                    <Typography subheading style={{ marginTop: 20 }}>
-              Mass
-                    </Typography>
-                    <Typography paragraph style={{ marginTop: 20 }}>
-                      {selectedPlanet.mass} kg
-                    </Typography>
-                    <Typography subheading style={{ marginTop: 20 }}>
-              Distance from Sun
-                    </Typography>
-                    <Typography paragraph style={{ marginTop: 20 }}>
-                      {selectedPlanet.distanceFromSun} AU (Astronomical Units)
-                    </Typography>
-                    <Typography subheading style={{ marginTop: 20 }}>
-              Diameter
-                    </Typography>
-                    <Typography paragraph style={{ marginTop: 20 }}>
-                      {selectedPlanet.diameter}
-                    </Typography>
-                  </>
-                )
-          }
+        {editingPlanet ? <EditForm selectedPlanet={selectedPlanet} onSubmit={onSubmit} errors={errors} handleErrorDialogClose={handleErrorDialogClose} />
+          : <PlanetDetailsDisplay planet={selectedPlanet} />}
       </Paper>
     </Grid>
   </Grid>
+        </>
 );

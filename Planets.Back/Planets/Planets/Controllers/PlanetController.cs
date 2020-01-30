@@ -1,10 +1,11 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp;
 using Planets.Data.Models.Views;
 using Planets.Data.Repositories;
+using Planets.Validators;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 
 namespace Planets.Controllers
@@ -16,19 +17,11 @@ namespace Planets.Controllers
         private readonly IPlanetReadRepository _planetReadRepository;
         private readonly IPlanetWriteRepository _planetWriteRepository;
 
-        public PlanetController(IPlanetReadRepository planetReadRepository, IPlanetWriteRepository planetWriteRepository)
+        public PlanetController(IPlanetReadRepository planetReadRepository,
+            IPlanetWriteRepository planetWriteRepository)
         {
             _planetReadRepository = planetReadRepository;
             _planetWriteRepository = planetWriteRepository;
-        }
-
-        [HttpGet("{id}")]
-        [ProducesResponseType(Status200OK)]
-        [ProducesResponseType(Status404NotFound)]
-        public async Task<ActionResult<PlanetView>> GetPlanet(Guid id)
-        {
-            var planet = await _planetReadRepository.ReadPlanet(id);
-            return planet == null ? NotFound("No such planet exist") : new ActionResult<PlanetView>(planet);
         }
 
         [HttpGet]
@@ -41,11 +34,18 @@ namespace Planets.Controllers
         }
 
         [HttpPut]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(Status200OK)]
         //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(Status404NotFound)]
+        [ProducesResponseType(Status400BadRequest)]
         public async Task<ActionResult<PlanetView>> UpdatePlanet(PlanetView planet)
         {
+            var validationResult = new PlanetViewValidator().Validate(planet);
+            if (!validationResult.IsValid)
+            {
+                var errorList = validationResult.Errors.Select(error => error.ErrorMessage);
+                return BadRequest(errorList);
+            }
             var planetResult = await _planetWriteRepository.WritePlanet(planet);
             return planetResult == null ? NotFound("No such planet exist") : new ActionResult<PlanetView>(planetResult);
         }

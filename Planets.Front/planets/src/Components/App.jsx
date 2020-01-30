@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Page } from './Layouts';
 import Planets from './Planets';
+import ErrorDialog from "./Planets/ErrorDialog";
 
 export default class extends Component {
   constructor(props) {
     super(props);
-    this.state = { planets: [], isLoading: true, error: '', selectedPlanet: {}, editingPlanet: false };
+    this.state = { planets: [], isLoading: true, errors: [], selectedPlanet: {}, editingPlanet: false };
   }
 
   componentDidMount() {
@@ -22,7 +23,7 @@ export default class extends Component {
           isLoading: false,
         });
       })
-      .catch((error) => this.setState({ error, isLoading: false }));
+      .catch((error) => this.setState({ errors: error, isLoading: false }));
   }
 
   handlePlanetSelected = id => {
@@ -48,7 +49,11 @@ export default class extends Component {
             planets: [...this.state.planets.filter(p => p.id !== planet.planet.id), planet.planet],
             selectedPlanet: planet.planet
           })
-        }).catch((error) => { this.setState({ error }) });
+        }).catch((error) => { this.setState({errors: error.response.data })});
+  }
+
+  handleErrorDialogClose = () => {
+    this.setState({errors: []})
   }
 
   render() {
@@ -56,7 +61,8 @@ export default class extends Component {
       <>
         <Planets selectedPlanet={this.state.selectedPlanet} planets={this.state.planets}
                  onSelect={this.handlePlanetSelected} onEdit={this.handleEditPlanet}
-                 editingPlanet={this.state.editingPlanet} onSubmit={this.handleEditSubmit}/>
+                 editingPlanet={this.state.editingPlanet} onSubmit={this.handleEditSubmit}
+                  errors={this.state.errors} handleErrorDialogClose={this.handleErrorDialogClose}/>
       </>
     );
   }
