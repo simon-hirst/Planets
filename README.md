@@ -1,5 +1,5 @@
 # Planets
-Technical interview task for Dootrix
+Technical interview task for Dootrix.
 
 # Running
 To run, you will need:
