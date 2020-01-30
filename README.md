@@ -3,7 +3,7 @@ Technical interview task for Dootrix
 
 # Running
 To run, you will need:
-- yarn (https://legacy.yarnpkg.com/en/docs/install/), although npm should work fine too.
+- yarn, although npm should work fine too.
 - ASP.NET Core 3.1
 
 Navigate to Planets.Back\Planets\Planets and run 'dotnet run', or just run it with your IDE of choice.
