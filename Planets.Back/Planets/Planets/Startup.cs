@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Planets.Data;
 using Planets.Data.Repositories;
-using Planets.StartupTasks;
 
 namespace Planets
 {
@@ -24,12 +23,10 @@ namespace Planets
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<PlanetsContext>(options =>
-                options.UseSqlServer(_configuration["SqlDbConnectionString"]));
+                options.UseSqlite("Data Source=app.db"));
             services.AddControllers();
             services.AddTransient<IPlanetReadRepository, PlanetReadRepository>();
             services.AddTransient<IPlanetWriteRepository, PlanetWriteRepository>();
-            services.AddTransient<ISetupTaskWriteRepository, SetupTaskWriteRepository>();
-            services.AddTransient<IStartupTask, PlanetSetup>();
             services.AddCors(options =>
             {
                 options.AddPolicy(MyAllowSpecificOrigins,

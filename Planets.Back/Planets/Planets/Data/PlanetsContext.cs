@@ -5,10 +5,19 @@ namespace Planets.Data
 {
     public class PlanetsContext : DbContext
     {
+        public DbSet<PlanetEntity> PlanetsDb { get; set; }
+
         public PlanetsContext(DbContextOptions<PlanetsContext> options) : base(options)
         {
+            
         }
-
-        public DbSet<PlanetEntity> PlanetsDb { get; set; }
+        
+        #region Required
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<PlanetEntity>().
+                HasData(PlanetsData.Planets);
+        }
+        #endregion
     }
 }

@@ -1,16 +1,13 @@
-using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Planets.Extensions;
 
 namespace Planets
 {
     public class Program
     {
-        public static Task Main(string[] args)
+        public static void Main(string[] args)
         {
-            var webHost = CreateWebHostBuilder(args).Build();
-            return webHost.RunWithStartupTaskAsync();
+            CreateWebHostBuilder(args).Build().Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
