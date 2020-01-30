@@ -2,9 +2,11 @@
 Technical interview task for Dootrix
 
 # Running
-To run, you will need Azure Storage Emulator installed and running (https://go.microsoft.com/fwlink/?linkid=717179&clcid=0x409) as well as yarn (https://legacy.yarnpkg.com/en/docs/install/#windows-stable), although npm should work fine too.
+To run, you will need:
+- yarn (https://legacy.yarnpkg.com/en/docs/install/), although npm should work fine too.
+- ASP.NET Core 3.1
 
-Run the start.ps1 script to run the project, or alternatively, navigate to Planets.Back\Planets\Planets and run 'dotnet run', or just run it with your IDE of choice.
+Navigate to Planets.Back\Planets\Planets and run 'dotnet run', or just run it with your IDE of choice.
 
 Then, navigate to Planets.Front\planets and run 'yarn install' followed by 'yarn start', or 'npm install' and 'npm start'. Although the node modules are included in the repo, so yarn/npm install should not be needed.
 
