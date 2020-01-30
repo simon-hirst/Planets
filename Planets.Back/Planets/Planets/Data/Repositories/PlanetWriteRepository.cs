@@ -18,10 +18,8 @@ namespace Planets.Data.Repositories
             var persistedPlanet = await _dbContext.PlanetsDb.FirstOrDefaultAsync(entity => entity.Id == planet.Id);
             if (persistedPlanet == null) return null;
             persistedPlanet.Diameter = planet.Diameter;
-            persistedPlanet.Image = planet.Image;
             persistedPlanet.Mass = planet.Mass;
             persistedPlanet.DistanceFromSun = planet.DistanceFromSun;
-            persistedPlanet.Name = planet.Name;
             _dbContext.PlanetsDb.Update(persistedPlanet);
             await _dbContext.SaveChangesAsync();
             return new PlanetView
