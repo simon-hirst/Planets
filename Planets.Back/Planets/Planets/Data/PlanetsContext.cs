@@ -10,6 +10,5 @@ namespace Planets.Data
         }
 
         public DbSet<PlanetEntity> PlanetsDb { get; set; }
-        public DbSet<AuthenticationEntity> AuthenticationDb { get; set; }
     }
 }

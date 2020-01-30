@@ -27,7 +27,6 @@ namespace Planets
                 options.UseSqlServer(_configuration["SqlDbConnectionString"]));
             services.AddControllers();
             services.AddTransient<IPlanetReadRepository, PlanetReadRepository>();
-            services.AddTransient<IAuthenticationReadRepository, AuthenticationReadRepository>();
             services.AddTransient<IPlanetWriteRepository, PlanetWriteRepository>();
             services.AddTransient<ISetupTaskWriteRepository, SetupTaskWriteRepository>();
             services.AddTransient<IStartupTask, PlanetSetup>();
