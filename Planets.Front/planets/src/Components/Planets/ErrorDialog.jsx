@@ -19,13 +19,15 @@ export default class ErrorDialog extends Component {
           open={this.props.errors.length}
           onClose={this.props.handleClose}
         >
-          <DialogTitle>Invalid input</DialogTitle>
+          <DialogTitle>Error</DialogTitle>
           <DialogContent>
-            {this.props.errors.map((error) => (
-              <DialogContentText>
-                {error}
-              </DialogContentText>
-            )) }
+            { Array.isArray(this.props.errors) ? this.props.errors.map((error) => (
+                <DialogContentText>
+                    {error}
+                </DialogContentText>
+            )) :  <DialogContentText>
+                {this.props.errors}
+            </DialogContentText>}
           </DialogContent>
           <DialogActions>
             <Button onClick={this.props.handleClose} color="primary">

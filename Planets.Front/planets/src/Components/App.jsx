@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Page } from './Layouts';
 import Planets from './Planets';
 import ErrorDialog from "./Planets/ErrorDialog";
 
 export default class extends Component {
   constructor(props) {
     super(props);
-    this.state = { planets: [], isLoading: true, errors: [], selectedPlanet: {}, editingPlanet: false };
+    this.state = { planets: [], isLoading: true, errors: [], selectedPlanet: {}, editingPlanet: false, password: {}, jwt: {} };
   }
 
   componentDidMount() {
@@ -41,13 +40,32 @@ export default class extends Component {
   }
 
   handleEditSubmit = planet => {
+    let config = {
+      url: 'https://localhost:5001/api/Planet',
+      method : 'put',
+      data : planet.planet,
+      headers: {
+        Authorization: 'Bearer ' + this.state.jwt.token
+      }};
+
     axios
-        .put('https://localhost:5001/api/Planet',  planet.planet )
+        .request(config)
         .then((response) => {
           this.setState({
             editingPlanet: false,
             planets: [...this.state.planets.filter(p => p.id !== planet.planet.id), planet.planet],
             selectedPlanet: planet.planet
+          })
+        }).catch((error) => { this.setState({ })});
+  }
+
+  handleAuthenticationSubmit = password => {
+    axios
+        .put('https://localhost:5001/api/Authentication', { Password : password.password } )
+        .then((response) => {
+          this.setState({
+            password: {},
+            jwt: response.data
           })
         }).catch((error) => { this.setState({errors: error.response.data })});
   }
@@ -56,13 +74,19 @@ export default class extends Component {
     this.setState({errors: []})
   }
 
+  handleAuthenticateDialogClose = () => {
+    this.setState({ authenticating: {}})
+  }
+
   render() {
     return (
       <>
         <Planets selectedPlanet={this.state.selectedPlanet} planets={this.state.planets}
                  onSelect={this.handlePlanetSelected} onEdit={this.handleEditPlanet}
                  editingPlanet={this.state.editingPlanet} onSubmit={this.handleEditSubmit}
-                  errors={this.state.errors} handleErrorDialogClose={this.handleErrorDialogClose}/>
+                  errors={this.state.errors} handleErrorDialogClose={this.handleErrorDialogClose}
+                 handleAuthenticateDialogClose={this.handleAuthenticateDialogClose} authenticating = {this.state.authenticating}
+                 onSubmitAuthentication={this.handleAuthenticationSubmit} jwt={this.state.jwt}/>
       </>
     );
   }

@@ -1,11 +1,17 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Planets.Data;
+using Planets.Data.Models.Views;
 using Planets.Data.Repositories;
+using Planets.Services;
 
 namespace Planets
 {
@@ -27,6 +33,8 @@ namespace Planets
             services.AddControllers();
             services.AddTransient<IPlanetReadRepository, PlanetReadRepository>();
             services.AddTransient<IPlanetWriteRepository, PlanetWriteRepository>();
+            services.AddTransient<IAuthenticationReadRepository, AuthenticationReadRepository>();
+            
             services.AddCors(options =>
             {
                 options.AddPolicy(MyAllowSpecificOrigins,
@@ -38,6 +46,13 @@ namespace Planets
                             .AllowCredentials();
                     });
             });
+
+            services.AddSingleton<IAuthenticationService>(
+                new AuthenticationService(
+                    _configuration.GetValue<string>("JWTSecretKey"),
+                    _configuration.GetValue<int>("JWTLifespan")
+                )
+            );
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

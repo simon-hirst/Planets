@@ -16,6 +16,27 @@ namespace Planets.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.1");
 
+            modelBuilder.Entity("Planets.Data.Models.Entities.AuthenticationEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AuthenticationDb");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("a2c44b7e-cd6f-45c6-8536-8ccf0faacb4c"),
+                            Password = "DootrixTest"
+                        });
+                });
+
             modelBuilder.Entity("Planets.Data.Models.Entities.PlanetEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -44,7 +65,7 @@ namespace Planets.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e7b48cfb-9342-42c7-930d-d6d13ef01653"),
+                            Id = new Guid("289db1a3-e6d5-464e-bbfc-b0a614a100ef"),
                             Diameter = "142984",
                             DistanceFromSun = "5.20",
                             Image = "jupiter.png",
@@ -53,7 +74,7 @@ namespace Planets.Migrations
                         },
                         new
                         {
-                            Id = new Guid("0c61fdc2-60b4-4f25-8bb9-9617be833928"),
+                            Id = new Guid("487a60b1-c908-416f-8ac3-c2448acbc9db"),
                             Diameter = "4879",
                             DistanceFromSun = "30.1",
                             Image = "neptune.png",
@@ -62,7 +83,7 @@ namespace Planets.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ec5216c8-cf83-4d27-a8da-74b4ab9b8e5e"),
+                            Id = new Guid("844bd9a7-6ad2-45d8-8efc-19794c99e89f"),
                             Diameter = "12104",
                             DistanceFromSun = "19.2",
                             Image = "uranus.png",
@@ -71,7 +92,7 @@ namespace Planets.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b2bb63e6-cb9e-480d-8b9a-4e0b4d22dce6"),
+                            Id = new Guid("a6eb2c70-3b9c-4ecd-b047-6f33cd194350"),
                             Diameter = "120536",
                             DistanceFromSun = "9.58",
                             Image = "saturn.png",
@@ -80,7 +101,7 @@ namespace Planets.Migrations
                         },
                         new
                         {
-                            Id = new Guid("cb9067ec-5ccc-4a39-8774-874b687fdae9"),
+                            Id = new Guid("9726964e-4d9a-42c4-abff-866d44a9f8ba"),
                             Diameter = "6779",
                             DistanceFromSun = "1.52",
                             Image = "mars.png",
@@ -89,7 +110,7 @@ namespace Planets.Migrations
                         },
                         new
                         {
-                            Id = new Guid("e83b2536-2297-4e0f-b86f-c84c6203215a"),
+                            Id = new Guid("10708304-4db5-4d98-966f-0427476720ba"),
                             Diameter = "12756",
                             DistanceFromSun = "1",
                             Image = "earth.png",
@@ -98,7 +119,7 @@ namespace Planets.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5950ca5c-9845-4ae9-bb6f-769d62591db4"),
+                            Id = new Guid("6da3edb0-7e29-4b9e-bf53-0982eb513bad"),
                             Diameter = "12104",
                             DistanceFromSun = "0.722",
                             Image = "venus.png",
@@ -107,7 +128,7 @@ namespace Planets.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d227f1dc-d571-4e90-a274-a179294fb01b"),
+                            Id = new Guid("ad3781f2-450a-4bd2-a586-07cc9e5123b2"),
                             Diameter = "4879",
                             DistanceFromSun = "0.387",
                             Image = "mercury.png",
