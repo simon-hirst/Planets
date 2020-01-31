@@ -2,10 +2,8 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
-using Planets.Data.Models.Views;
 using Microsoft.IdentityModel.Tokens;
+using Planets.Models.Views;
 
 namespace Planets.Services
 {

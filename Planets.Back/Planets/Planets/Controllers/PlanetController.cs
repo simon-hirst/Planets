@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp;
-using Planets.Data.Models.Views;
 using Planets.Data.Repositories;
+using Planets.Models.Views;
 using Planets.Validators;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 

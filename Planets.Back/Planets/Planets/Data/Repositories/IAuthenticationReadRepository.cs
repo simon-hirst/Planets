@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Planets.Data.Models.Views;
+﻿using System.Threading.Tasks;
+using Planets.Models.Views;
 
 namespace Planets.Data.Repositories
 {

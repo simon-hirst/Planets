@@ -2,13 +2,12 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Planets.Data;
 
 namespace Planets.Migrations
 {
     [DbContext(typeof(PlanetsContext))]
-    partial class PlanetsContextModelSnapshot : ModelSnapshot
+    class PlanetsContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

@@ -1,4 +1,4 @@
-﻿using Planets.Data.Models.Views;
+﻿using Planets.Models.Views;
 
 namespace Planets.Services
 {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Planets.Data.Models.Entities;
+using Planets.Models.Entities;
 
 namespace Planets.Data
 {

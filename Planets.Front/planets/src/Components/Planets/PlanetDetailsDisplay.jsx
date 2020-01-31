@@ -2,10 +2,6 @@ import { Avatar, Typography } from '@material-ui/core';
 import React, { Component } from 'react';
 
 export default class PlanetDetailsDisplay extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {
       id, name, diameter, distanceFromSun, image, mass,

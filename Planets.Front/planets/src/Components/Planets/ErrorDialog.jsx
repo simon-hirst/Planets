@@ -7,11 +7,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default class ErrorDialog extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { open: false };
-  }
-
   render() {
     return (
       <>
@@ -22,12 +17,14 @@ export default class ErrorDialog extends Component {
           <DialogTitle>Error</DialogTitle>
           <DialogContent>
             { Array.isArray(this.props.errors) ? this.props.errors.map((error) => (
-                <DialogContentText>
-                    {error}
-                </DialogContentText>
-            )) :  <DialogContentText>
+              <DialogContentText>
+                {error}
+              </DialogContentText>
+            )) : (
+              <DialogContentText>
                 {this.props.errors}
-            </DialogContentText>}
+              </DialogContentText>
+            )}
           </DialogContent>
           <DialogActions>
             <Button onClick={this.props.handleClose} color="primary">

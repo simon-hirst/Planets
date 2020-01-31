@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Planets.Data.Models.Views;
+using Planets.Models.Views;
 
 namespace Planets.Data.Repositories
 {

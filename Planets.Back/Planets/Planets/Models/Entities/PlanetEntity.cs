@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Planets.Data.Models.Entities
+namespace Planets.Models.Entities
 {
     public class PlanetEntity
     {

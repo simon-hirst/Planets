@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Planets.Data.Models.Views;
 using Planets.Data.Repositories;
+using Planets.Models.Views;
 using Planets.Services;
 
 namespace Planets.Controllers

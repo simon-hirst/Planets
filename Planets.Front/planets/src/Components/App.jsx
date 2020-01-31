@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Planets from './Planets';
-import ErrorDialog from "./Planets/ErrorDialog";
 
 export default class extends Component {
   constructor(props) {
     super(props);
-    this.state = { planets: [], isLoading: true, errors: [], selectedPlanet: {}, editingPlanet: false, password: {}, jwt: {} };
+    this.state = {
+      planets: [], isLoading: true, errors: [], selectedPlanet: {}, editingPlanet: false, password: {}, jwt: {},
+    };
   }
 
   componentDidMount() {
     this.getPlanets();
   }
 
-  getPlanets(){
+  getPlanets() {
     axios
       .get('https://localhost:5001/api/Planet')
       .then((response) => {
@@ -81,12 +82,20 @@ export default class extends Component {
   render() {
     return (
       <>
-        <Planets selectedPlanet={this.state.selectedPlanet} planets={this.state.planets}
-                 onSelect={this.handlePlanetSelected} onEdit={this.handleEditPlanet}
-                 editingPlanet={this.state.editingPlanet} onSubmit={this.handleEditSubmit}
-                  errors={this.state.errors} handleErrorDialogClose={this.handleErrorDialogClose}
-                 handleAuthenticateDialogClose={this.handleAuthenticateDialogClose} authenticating = {this.state.authenticating}
-                 onSubmitAuthentication={this.handleAuthenticationSubmit} jwt={this.state.jwt}/>
+        <Planets
+          selectedPlanet={this.state.selectedPlanet}
+          planets={this.state.planets}
+          onSelect={this.handlePlanetSelected}
+          onEdit={this.handleEditPlanet}
+          editingPlanet={this.state.editingPlanet}
+          onSubmit={this.handleEditSubmit}
+          errors={this.state.errors}
+          handleErrorDialogClose={this.handleErrorDialogClose}
+          handleAuthenticateDialogClose={this.handleAuthenticateDialogClose}
+          authenticating={this.state.authenticating}
+          onSubmitAuthentication={this.handleAuthenticationSubmit}
+          jwt={this.state.jwt}
+        />
       </>
     );
   }

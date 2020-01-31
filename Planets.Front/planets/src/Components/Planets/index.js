@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import {
-  Grid, Paper, Typography, List, ListItem, ListItemText, Avatar, ListItemSecondaryAction, IconButton,
+  Grid, Paper, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton,
 } from '@material-ui/core';
 import { Edit } from '@material-ui/icons';
 import EditForm from './EditForm';
@@ -16,8 +16,8 @@ const styles = {
 };
 
 export default ({
-  planets, onSelect, selectedPlanet, onEdit, editingPlanet, onSubmit, errors, handleErrorDialogClose, handleAuthenticateDialogClose, password, onSubmitAuthentication,
-  jwt,
+  planets, onSelect, selectedPlanet, onEdit, editingPlanet, onSubmit, errors, handleErrorDialogClose,
+  handleAuthenticateDialogClose, password, onSubmitAuthentication, jwt,
 }) => (
   <>
     {errors.length ? <ErrorDialog errors={errors} handleClose={handleErrorDialogClose} /> : <></>}

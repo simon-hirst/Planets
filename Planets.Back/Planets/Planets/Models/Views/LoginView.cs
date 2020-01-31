@@ -1,4 +1,4 @@
-﻿namespace Planets.Data.Models.Views
+﻿namespace Planets.Models.Views
 {
     public class LoginView
     {

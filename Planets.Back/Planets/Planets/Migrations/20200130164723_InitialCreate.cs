@@ -11,7 +11,7 @@ namespace Planets.Migrations
                 name: "PlanetsDb",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(),
                     Name = table.Column<string>(nullable: true),
                     Image = table.Column<string>(nullable: true),
                     DistanceFromSun = table.Column<string>(nullable: true),

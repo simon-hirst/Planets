@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Planets.Data.Models.Views;
+using Planets.Models.Views;
 
 namespace Planets.Data.Repositories
 {
