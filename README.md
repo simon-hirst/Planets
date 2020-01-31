@@ -1,5 +1,5 @@
 # Planets
-Technical interview task for Dootrix
+Technical interview task for Dootrix.
 
 # Running
 To run, you will need:
@@ -11,4 +11,6 @@ Navigate to Planets.Back\Planets\Planets and run 'dotnet run', or just run it wi
 Then, navigate to Planets.Front\planets and run 'yarn install' followed by 'yarn start', or 'npm install' and 'npm start'. Although the node modules are included in the repo, so yarn/npm install should not be needed. The frontend will then start on http://localhost:3000
 
 # Usage
-Every time you run the backend service, the database will be reseeded with the default data.
+If you want to revert the database to the default seed data, delete app.db and then run 'dotnet ef database update' within the project folder.
+
+To edit planets, you need to provide a password for security demonstration, this is set to "DootrixTest".
